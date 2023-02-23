@@ -77,6 +77,12 @@ After that is done, you can go ahead and create the controller and the GraphQL q
     - Add the query to the `AddMutationTypes` method in `StartupExtensions.cs`.
     - Make sure to have the `[ExtendObjectType("Mutation")]` attribute on your new query class.
 
+## Helpful Tools
+
+There are some helpful tools out there for you to use. You can use Postman and select the GraphQL radio button under Body. This will fetch GraphQL's schema for you to make an Intellisense.
+
+There is also [Banana Cake Pop](https://chillicream.com/docs/bananacakepop/v2) by Chilli Cream. This gives a nice UI dedicated to GraphQL, and it already works well with Hot Chocolate. This will also give you the Intellisense also.
+
 ## Your First GraphQL Query
 
 If you are new to GraphQL, you can use this query below to get started.

@@ -51,7 +51,7 @@ Along with queries there are the following mutations for each model.
 To add a model, you will need to follow these steps:
 
 - Create the model in the `Models` directory.
-- Create a new `DbSet` in the `ApplicationDbContext` under the `Data` directory.
+- Create a `DbSet` for your new model in the `ApplicationDbContext` under the `Data` directory.
 - Create a repository.
   - Repositories go in the `Repositories` directory.
   - Add the new repository to the `ApplicationDbContext` under the `Data` directory.

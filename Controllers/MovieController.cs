@@ -16,21 +16,9 @@ namespace net_graphql.Controllers
             this._movieService = movieService;
         }
 
-        protected override ServiceBase<Movie> LoadService()
+        protected override ServiceBase<Movie, CreateMovie> LoadService()
         {
             return this._movieService;
-        }
-
-        protected override Movie MapCreate(CreateMovie createModel)
-        {
-            return new Movie()
-            {
-                Description = createModel.Description,
-                Instructor = createModel.Instructor,
-                SuperheroId = createModel.SuperheroId,
-                ReleaseDate = createModel.ReleaseDate,
-                Title = createModel.Title
-            };
         }
     }
 }

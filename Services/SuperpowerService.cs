@@ -1,26 +1,31 @@
 ﻿using net_graphql.Data;
 using net_graphql.Models;
+using net_graphql.Models.Mutations;
 
 namespace net_graphql.Services
 {
-    public class SuperpowerService : ServiceBase<Superpower>
+    public class SuperpowerService : ServiceBase<Superpower, CreateSuperpower>
     {
         public SuperpowerService(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
 
-        public override void PreAddLogic(Superpower newObj, Superpower passedData)
+        protected override Superpower MapCreate(CreateSuperpower createModel)
         {
-            newObj.Description = passedData.Description;
-            newObj.SuperheroId = passedData.SuperheroId;
-            newObj.SuperPower = passedData.SuperPower;
+            return new Superpower()
+            {
+                Description = createModel.Description,
+                SuperheroId = createModel.SuperheroId,
+                SuperPower = createModel.SuperPower
+            };
         }
 
-        public override void UpdateModel(Superpower dbModel, Superpower model)
+        protected override void UpdateModel(Superpower dbModel, Superpower model)
         {
             dbModel.SuperheroId = model.SuperheroId;
             dbModel.SuperPower = model.SuperPower;
             dbModel.Description = model.Description;
         }
+
     }
 }

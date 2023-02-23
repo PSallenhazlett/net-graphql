@@ -10,14 +10,7 @@ namespace net_graphql.Data.Mutations
     {
         public async Task<Superhero> AddSuperhero([Service] SuperheroService superheroService, CreateSuperhero superhero)
         {
-            return await superheroService.Add(new Superhero()
-            {
-                Description = superhero.Description,
-                Height = superhero.Height,
-                Movies = superhero.Movies,
-                Name = superhero.Name,
-                Superpowers = superhero.Superpowers
-            });
+            return await superheroService.Add(superhero);
         }
 
         public async Task<Superhero> UpdateSuperhero([Service] SuperheroService superheroService, Superhero superhero)

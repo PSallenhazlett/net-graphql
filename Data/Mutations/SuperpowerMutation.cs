@@ -9,12 +9,7 @@ namespace net_graphql.Data.Mutations
     {
         public async Task<Superpower> AddSuperpower([Service] SuperpowerService superpowerService, CreateSuperpower superpower)
         {
-            return await superpowerService.Add(new Superpower()
-            {
-                Description = superpower.Description,
-                SuperPower = superpower.SuperPower,
-                SuperheroId = superpower.SuperheroId
-            });
+            return await superpowerService.Add(superpower);
         }
 
         public async Task<Superpower> UpdateSuperpower([Service] SuperpowerService superpowerService, Superpower superpower)
@@ -25,7 +20,6 @@ namespace net_graphql.Data.Mutations
         public async Task<Superpower> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)
         {
             await superpowerService.Delete(id);
-
             return new Superpower();
         }
     }

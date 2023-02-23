@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace net_graphql.Services
 {
-    public abstract class ServiceBase<TModel> where TModel : EntityBase, new()
+    public abstract class ServiceBase<TModel, TCreateModel> where TModel : EntityBase, new() where TCreateModel : class
     {
         ApplicationDbContext _context;
 
@@ -20,8 +20,8 @@ namespace net_graphql.Services
             this._context.Dispose();
         }
 
-        public abstract void PreAddLogic(TModel newObj, TModel passedData);
-        public abstract void UpdateModel(TModel dbModel, TModel model);
+        protected abstract TModel MapCreate(TCreateModel createModel);
+        protected abstract void UpdateModel(TModel dbModel, TModel model);
 
         public IEnumerable<TModel> Get(Func<TModel, bool>? filter = null)
         {
@@ -40,12 +40,11 @@ namespace net_graphql.Services
             return this._context.Set<TModel>().FirstOrDefault(o => o.Id == id);
         }
 
-        public async Task<TModel> Add(TModel model)
+        public async Task<TModel> Add(TCreateModel createModel)
         {
-            var newObj = new TModel();
-            PreAddLogic(newObj, model);
+            var model = this.MapCreate(createModel);
 
-            await this._context.Set<TModel>().AddAsync(newObj);
+            await this._context.Set<TModel>().AddAsync(model);
             await this._context.SaveChangesAsync();
 
             return model;

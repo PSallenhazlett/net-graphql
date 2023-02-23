@@ -18,21 +18,9 @@ namespace net_graphql.Controllers
             this._superheroService = superheroService;
         }
 
-        protected override ServiceBase<Superhero> LoadService()
+        protected override ServiceBase<Superhero, CreateSuperhero> LoadService()
         {
             return this._superheroService;
-        }
-
-        protected override Superhero MapCreate(CreateSuperhero createModel)
-        {
-            return new Superhero()
-            {
-                Description = createModel.Description,
-                Height = createModel.Height,
-                Movies = createModel.Movies,
-                Name = createModel.Name,
-                Superpowers = createModel.Superpowers
-            };
         }
     }
 }

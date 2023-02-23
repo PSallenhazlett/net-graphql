@@ -16,19 +16,9 @@ namespace net_graphql.Controllers
             this._superpowerService = superpowerService;
         }
 
-        protected override ServiceBase<Superpower> LoadService()
+        protected override ServiceBase<Superpower, CreateSuperpower> LoadService()
         {
             return this._superpowerService;
-        }
-
-        protected override Superpower MapCreate(CreateSuperpower createModel)
-        {
-            return new Superpower()
-            {
-                Description = createModel.Description,
-                SuperheroId = createModel.SuperheroId,
-                SuperPower = createModel.SuperPower
-            };
         }
     }
 }

@@ -1,24 +1,28 @@
 ﻿using net_graphql.Data;
 using net_graphql.Models;
+using net_graphql.Models.Mutations;
 
 namespace net_graphql.Services
 {
-    public class MovieService : ServiceBase<Movie>
+    public class MovieService : ServiceBase<Movie, CreateMovie>
     {
         public MovieService(ApplicationDbContext context) : base(context)
         {
         }
 
-        public override void PreAddLogic(Movie newObj, Movie passedData)
+        protected override Movie MapCreate(CreateMovie createModel)
         {
-            newObj.Title = passedData.Title;
-            newObj.Description = passedData.Description;
-            newObj.Instructor = passedData.Instructor;
-            newObj.ReleaseDate = passedData.ReleaseDate;
-            newObj.SuperheroId = passedData.SuperheroId;
+            return new Movie()
+            {
+                Description = createModel.Description,
+                Instructor = createModel.Instructor,
+                SuperheroId = createModel.SuperheroId,
+                ReleaseDate = createModel.ReleaseDate,
+                Title = createModel.Title
+            };
         }
 
-        public override void UpdateModel(Movie dbModel, Movie model)
+        protected override void UpdateModel(Movie dbModel, Movie model)
         {
             dbModel.Title = model.Title;
             dbModel.Description = model.Description;

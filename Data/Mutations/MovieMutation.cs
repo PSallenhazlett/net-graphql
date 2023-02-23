@@ -9,14 +9,7 @@ namespace net_graphql.Data.Mutations
     {
         public async Task<Movie> AddMovie([Service] MovieService movieService, CreateMovie movie)
         {
-            return await movieService.Add(new Movie()
-            {
-                Description = movie.Description,
-                Title = movie.Title,
-                Instructor = movie.Instructor,
-                ReleaseDate = movie.ReleaseDate,
-                SuperheroId = movie.SuperheroId
-            });
+            return await movieService.Add(movie);
         }
 
         public async Task<Movie> UpdateMovie([Service] MovieService movieService, Movie movie)

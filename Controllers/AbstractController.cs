@@ -9,8 +9,7 @@ namespace net_graphql.Controllers
 {
     public abstract class AbstractController<TModel, TCreateModel> : ControllerBase where TModel : EntityBase, new() where TCreateModel : class
     {
-        protected abstract ServiceBase<TModel> LoadService();
-        protected abstract TModel MapCreate(TCreateModel createModel);
+        protected abstract ServiceBase<TModel, TCreateModel> LoadService();
 
         [HttpGet]
         public IActionResult Get()
@@ -30,9 +29,7 @@ namespace net_graphql.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TCreateModel createModel)
         {
-            var newModel = this.MapCreate(createModel);
-            var modelToReturn = await LoadService().Add(newModel);
-
+            var modelToReturn = await LoadService().Add(createModel);
             return Ok(modelToReturn);
         }
 

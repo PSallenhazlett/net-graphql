@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using net_graphql.Data;
 using net_graphql.Models;
 
 namespace net_graphql.Repositories
 {
-    public class AbstractRepository<TModel> where TModel : EntityBase, new()
+    public abstract class AbstractRepository<TModel> where TModel : EntityBase, new()
     {
         ApplicationDbContext _context;
+
+        protected abstract IEnumerable<TModel> GetIncludes(IQueryable<TModel> set);
 
         public AbstractRepository(ApplicationDbContext context)
         {
@@ -17,17 +20,17 @@ namespace net_graphql.Repositories
         {
             if (filter != null)
             {
-                return this._context.Set<TModel>().Where(filter);
+                return this.GetIncludes(this._context.Set<TModel>()).Where(filter);
             }
             else
             {
-                return this._context.Set<TModel>();
+                return this.GetIncludes(this._context.Set<TModel>());
             }
         }
 
         public TModel? GetSingle(Guid id)
         {
-            return this._context.Set<TModel>().FirstOrDefault(o => o.Id == id);
+            return this.GetIncludes(this._context.Set<TModel>()).FirstOrDefault(o => o.Id == id);
         }
 
         public async Task<TModel> Add(TModel model)

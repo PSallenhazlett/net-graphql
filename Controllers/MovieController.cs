@@ -16,7 +16,7 @@ namespace net_graphql.Controllers
             this._movieService = movieService;
         }
 
-        protected override ServiceBase<Movie, CreateMovie> LoadService()
+        protected override AbstractService<Movie, CreateMovie> LoadService()
         {
             return this._movieService;
         }

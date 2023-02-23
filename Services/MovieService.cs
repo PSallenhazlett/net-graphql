@@ -4,7 +4,7 @@ using net_graphql.Models.Mutations;
 
 namespace net_graphql.Services
 {
-    public class MovieService : ServiceBase<Movie, CreateMovie>
+    public class MovieService : AbstractService<Movie, CreateMovie>
     {
         public MovieService(ApplicationDbContext context) : base(context)
         {

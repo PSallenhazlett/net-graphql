@@ -9,7 +9,7 @@ namespace net_graphql.Controllers
 {
     public abstract class AbstractController<TModel, TCreateModel> : ControllerBase where TModel : EntityBase, new() where TCreateModel : class
     {
-        protected abstract ServiceBase<TModel, TCreateModel> LoadService();
+        protected abstract AbstractService<TModel, TCreateModel> LoadService();
 
         [HttpGet]
         public IActionResult Get()

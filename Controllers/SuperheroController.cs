@@ -18,7 +18,7 @@ namespace net_graphql.Controllers
             this._superheroService = superheroService;
         }
 
-        protected override ServiceBase<Superhero, CreateSuperhero> LoadService()
+        protected override AbstractService<Superhero, CreateSuperhero> LoadService()
         {
             return this._superheroService;
         }

@@ -4,7 +4,7 @@ using net_graphql.Models.Mutations;
 
 namespace net_graphql.Services
 {
-    public class SuperpowerService : ServiceBase<Superpower, CreateSuperpower>
+    public class SuperpowerService : AbstractService<Superpower, CreateSuperpower>
     {
         public SuperpowerService(ApplicationDbContext dbContext) : base(dbContext)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace net_graphql.Services
 {
-    public class SuperheroService : ServiceBase<Superhero, CreateSuperhero>
+    public class SuperheroService : AbstractService<Superhero, CreateSuperhero>
     {
         public SuperheroService(ApplicationDbContext context) : base(context)
         {

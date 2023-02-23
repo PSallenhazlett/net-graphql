@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace net_graphql.Services
 {
-    public abstract class ServiceBase<TModel, TCreateModel> where TModel : EntityBase, new() where TCreateModel : class
+    public abstract class AbstractService<TModel, TCreateModel> where TModel : EntityBase, new() where TCreateModel : class
     {
         ApplicationDbContext _context;
 
-        public ServiceBase(ApplicationDbContext context)
+        public AbstractService(ApplicationDbContext context)
         {   
             this._context = context;
         }
 
-        ~ServiceBase()
+        ~AbstractService()
         {
             this._context.Dispose();
         }

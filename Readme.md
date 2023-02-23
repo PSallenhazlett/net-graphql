@@ -138,3 +138,5 @@ This would result in the following JSON:
     }
 }
 ```
+
+For helpful and additional information, you can visit the [HotChocolate Docs](https://chillicream.com/docs/hotchocolate/v13).

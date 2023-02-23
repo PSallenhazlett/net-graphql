@@ -10,20 +10,16 @@ namespace net_graphql.Data.Queries
         [UseFiltering]
         [UseSorting]
         [GraphQLDescription("Get a list of superheroes.")]
-        public IEnumerable<Superpower> GetSuperpowers([Service] SuperpowerService superpowerService, Guid? superheroId) 
-        {
-            if (superheroId.HasValue) 
-            {
-                return superpowerService.Get(s => s.SuperheroId == superheroId.Value);
-            } 
-            else
-            {
-                return superpowerService.Get();
-            }
-        }
+        public IEnumerable<Superpower> GetSuperpowers([Service] ApplicationDbContext context) => context.Superpowers;
 
         [GraphQLDescription("Get a single superpower by id.")]
         public Superpower GetSuperpower([Service] SuperpowerService superpowerService, Guid id) =>
-            superpowerService.GetSingle(id) ?? new Superpower();
+            superpowerService.GetSingle(id) ?? new Superpower()
+            {
+                Id = Guid.Empty,
+                Description = "",
+                SuperheroId = Guid.Empty,
+                SuperPower = ""
+            };
     }
 }

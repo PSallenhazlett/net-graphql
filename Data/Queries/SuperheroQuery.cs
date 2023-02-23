@@ -10,11 +10,16 @@ namespace net_graphql.Data.Queries
         [UseFiltering]
         [UseSorting]
         [GraphQLDescription("Get a list of superheroes.")]
-        public IEnumerable<Superhero> GetSuperheroes([Service] SuperheroService superheroService) => 
-            superheroService.Get();
+        public IEnumerable<Superhero> GetSuperheroes([Service] ApplicationDbContext context) => context.Superheroes;
 
         [GraphQLDescription("Get a single superhero by id.")]
         public Superhero GetSuperhero([Service] SuperheroService superheroService, Guid id) => 
-            superheroService.GetSingle(id) ?? new Superhero();
+            superheroService.GetSingle(id) ?? new Superhero()
+            {
+                Id = Guid.Empty,
+                Description = "",
+                Height = 0,
+                Name = "",
+            };
     }
 }

@@ -10,11 +10,18 @@ namespace net_graphql.Data.Queries
         [UseFiltering]
         [UseSorting]
         [GraphQLDescription("Get a list of the movies.")]
-        public IEnumerable<Movie> GetMovies([Service] MovieService movieService) =>
-            movieService.Get();
+        public IEnumerable<Movie> GetMovies([Service] ApplicationDbContext context) => context.Movies;
 
         [GraphQLDescription("Get a single movies by id.")]
         public Movie GetMovie([Service] MovieService movieService, Guid id) =>
-            movieService.GetSingle(id) ?? new Movie();
+            movieService.GetSingle(id) ?? new Movie()
+            {   
+                Id = Guid.Empty,
+                Description = "",
+                Instructor = "",
+                Title = "",
+                ReleaseDate = DateTime.Now,
+                SuperheroId = Guid.Empty,
+            };
     }
 }

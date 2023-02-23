@@ -5,7 +5,7 @@ namespace net_graphql.Repositories
 {
     public class MovieRepository : AbstractRepository<Movie>
     {
-        public MovieRepository(ApplicationDbContext appDbContext) : base(appDbContext)
+        public MovieRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
     }

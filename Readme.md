@@ -51,6 +51,7 @@ Along with queries there are the following mutations for each model.
 To add a model, you will need to follow these steps:
 
 - Create the model in the `Models` directory.
+- Create a new `DbSet` in the `ApplicationDbContext` under the `Data` directory.
 - Create a repository.
   - Repositories go in the `Repositories` directory.
   - Add the new repository to the `ApplicationDbContext` under the `Data` directory.
@@ -59,6 +60,7 @@ To add a model, you will need to follow these steps:
   - Services are in the `Services` directory.
   - Add the new service to the `AddServices` method in `StartupExtensions.cs`.
 - (optional) You can create your own seeder under the `Data\ContextConfigurations` directory.
+  - Once you create it, you will need to add it to the `OnModelCreating` method in the `ApplicationDbContext`.
 - Add a new migration with a different name (other than 'Initial').
 - Update the database.
 

@@ -9,7 +9,6 @@ namespace net_graphql.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            Console.WriteLine("Context Intitialized!");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

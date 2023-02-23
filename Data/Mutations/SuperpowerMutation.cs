@@ -17,15 +17,9 @@ namespace net_graphql.Data.Mutations
             });
         }
 
-        public async Task<Superpower> UpdateSuperpower([Service] SuperpowerService superpowerService, Guid id, string superPower, string description, Guid superheroId)
+        public async Task<Superpower> UpdateSuperpower([Service] SuperpowerService superpowerService, Superpower superpower)
         {
-            return await superpowerService.Update(new Superpower()
-            {
-                Id = id,
-                SuperPower = superPower,
-                Description = description,
-                SuperheroId = superheroId,
-            });
+            return await superpowerService.Update(superpower);
         }
 
         public async Task<Superpower> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)

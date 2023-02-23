@@ -3,51 +3,31 @@ using net_graphql.Models.Mutations;
 using net_graphql.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using net_graphql.Repositories;
 
 namespace net_graphql.Services
 {
     public abstract class AbstractService<TModel, TCreateModel> where TModel : EntityBase, new() where TCreateModel : class
     {
-        ApplicationDbContext _context;
-
-        public AbstractService(ApplicationDbContext context)
-        {   
-            this._context = context;
-        }
-
-        ~AbstractService()
-        {
-            this._context.Dispose();
-        }
-
         protected abstract TModel MapCreate(TCreateModel createModel);
         protected abstract void UpdateModel(TModel dbModel, TModel model);
 
+        protected abstract AbstractRepository<TModel> LoadRepository();
+
         public IEnumerable<TModel> Get(Func<TModel, bool>? filter = null)
         {
-            if (filter != null)
-            {
-                return this._context.Set<TModel>().Where(filter);
-            }
-            else
-            {
-                return this._context.Set<TModel>();
-            }
+            return this.LoadRepository().Get(filter);
         }
 
         public TModel? GetSingle(Guid id)
         {
-            return this._context.Set<TModel>().FirstOrDefault(o => o.Id == id);
+            return this.LoadRepository().GetSingle(id);
         }
 
         public async Task<TModel> Add(TCreateModel createModel)
         {
             var model = this.MapCreate(createModel);
-
-            await this._context.Set<TModel>().AddAsync(model);
-            await this._context.SaveChangesAsync();
-
-            return model;
+            return await LoadRepository().Add(model);
         }
 
         public async Task<TModel> Update(TModel model)
@@ -55,10 +35,7 @@ namespace net_graphql.Services
             var dbModel = this.GetSingle(model.Id);
             this.UpdateModel(dbModel, model);
 
-            this._context.Set<TModel>().Update(dbModel);
-            await _context.SaveChangesAsync();
-
-            return dbModel;
+            return await this.LoadRepository().Update(dbModel);
         }
 
         public async Task<DeleteResult> Delete(Guid id)
@@ -73,9 +50,7 @@ namespace net_graphql.Services
                     throw new Exception("Could not find Model based on Id");
                 }
 
-                this._context.Remove(dbModel);
-
-                await this._context.SaveChangesAsync();
+                await this.LoadRepository().Delete(dbModel);
                 success = true;
             }
             catch (Exception ex)

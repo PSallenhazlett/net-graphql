@@ -1,14 +1,23 @@
 ﻿using net_graphql.Data;
 using net_graphql.Models;
 using net_graphql.Models.Mutations;
+using net_graphql.Repositories;
 using System.Linq;
 
 namespace net_graphql.Services
 {
     public class SuperheroService : AbstractService<Superhero, CreateSuperhero>
     {
-        public SuperheroService(ApplicationDbContext context) : base(context)
+        SuperheroRepository _superheroRepository;
+
+        public SuperheroService(SuperheroRepository superheroRepository)
         {
+            this._superheroRepository = superheroRepository;
+        }
+
+        protected override AbstractRepository<Superhero> LoadRepository()
+        {
+            return this._superheroRepository;
         }
 
         protected override Superhero MapCreate(CreateSuperhero createModel)

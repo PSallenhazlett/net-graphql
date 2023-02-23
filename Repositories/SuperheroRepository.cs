@@ -1,14 +1,12 @@
 ﻿using net_graphql.Data;
+using net_graphql.Models;
 
 namespace net_graphql.Repositories
 {
-    public class SuperheroRepository
+    public class SuperheroRepository : AbstractRepository<Superhero>
     {
-        private readonly ApplicationDbContext _appDbContext;
-
-        public SuperheroRepository(ApplicationDbContext appDbContext)
+        public SuperheroRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _appDbContext = appDbContext;
         }
     }
 }

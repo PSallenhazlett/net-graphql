@@ -1,14 +1,12 @@
 ﻿using net_graphql.Data;
+using net_graphql.Models;
 
 namespace net_graphql.Repositories
 {
-    public class MovieRepository
+    public class MovieRepository : AbstractRepository<Movie>
     {
-        private readonly ApplicationDbContext _appDbContext;
-
-        public MovieRepository(ApplicationDbContext appDbContext)
+        public MovieRepository(ApplicationDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;
         }
     }
 }

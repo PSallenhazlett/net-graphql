@@ -1,13 +1,22 @@
 ﻿using net_graphql.Data;
 using net_graphql.Models;
 using net_graphql.Models.Mutations;
+using net_graphql.Repositories;
 
 namespace net_graphql.Services
 {
     public class SuperpowerService : AbstractService<Superpower, CreateSuperpower>
     {
-        public SuperpowerService(ApplicationDbContext dbContext) : base(dbContext)
+        SuperpowerRepository _superpowerRepository;
+
+        public SuperpowerService(SuperpowerRepository superpowerRepository)
         {
+            this._superpowerRepository = superpowerRepository;
+        }
+
+        protected override AbstractRepository<Superpower> LoadRepository()
+        {
+            return this._superpowerRepository;
         }
 
         protected override Superpower MapCreate(CreateSuperpower createModel)

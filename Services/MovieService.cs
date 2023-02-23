@@ -1,13 +1,22 @@
 ﻿using net_graphql.Data;
 using net_graphql.Models;
 using net_graphql.Models.Mutations;
+using net_graphql.Repositories;
 
 namespace net_graphql.Services
 {
     public class MovieService : AbstractService<Movie, CreateMovie>
     {
-        public MovieService(ApplicationDbContext context) : base(context)
+        MovieRepository _movieRepository;
+
+        public MovieService(MovieRepository movieRepository)
         {
+            this._movieRepository = movieRepository;
+        }
+
+        protected override AbstractRepository<Movie> LoadRepository()
+        {
+            return this._movieRepository;
         }
 
         protected override Movie MapCreate(CreateMovie createModel)

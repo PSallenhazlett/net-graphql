@@ -7,7 +7,7 @@ This is a simple repository containing a .NET 6.0 Web API and GraphQL functional
 
 Everything is mostly setup. You will need:
 
- 1. A MS SQL Server Databse.
+ 1. A MS SQL Server Database.
  2. Entity Framework Core Tools (See [Migration Tools](#migration-tools)).
 
 Once you have those, change the connection string in appsettings.json to point to your database. After that, you will need to migrate the database.

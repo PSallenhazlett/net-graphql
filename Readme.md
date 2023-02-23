@@ -26,7 +26,7 @@ Update-Database
 
 ## Migration Tools
 
-If there is an error with the above section, you will need to download **Entity Framework Core Tools**. To do so, run this in the NuGet Package Manager console:
+If there is an error with migrating the database, you will need to download **Entity Framework Core Tools**. To do so, run this in the NuGet Package Manager console:
 
 ```
 Install-Package Microsoft.EntityFrameworkCore.Tools

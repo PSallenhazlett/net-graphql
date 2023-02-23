@@ -21,7 +21,13 @@ namespace net_graphql.Data.Mutations
         public async Task<Superhero> DeleteSuperhero([Service] SuperheroService superheroService, Guid id)
         {
             await superheroService.Delete(id);
-            return new Superhero();
+            return new Superhero()
+            {
+                Id = Guid.Empty,
+                Description = "",
+                Height = 0,
+                Name = "",
+            };
         }
     }
 }

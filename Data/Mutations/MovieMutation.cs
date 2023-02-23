@@ -20,7 +20,15 @@ namespace net_graphql.Data.Mutations
         public async Task<Movie> DeleteMovie([Service] MovieService movieService, Guid id)
         {
             await movieService.Delete(id);
-            return new Movie();
+            return new Movie()
+            {
+                Id = Guid.Empty,
+                Description = "",
+                Instructor = "",
+                Title = "",
+                ReleaseDate = DateTime.Now,
+                SuperheroId = Guid.Empty,
+            };
         }
     }
 }

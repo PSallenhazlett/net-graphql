@@ -20,7 +20,13 @@ namespace net_graphql.Data.Mutations
         public async Task<Superpower> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)
         {
             await superpowerService.Delete(id);
-            return new Superpower();
+            return new Superpower()
+            {
+                Id = Guid.Empty,
+                Description = "",
+                SuperheroId = Guid.Empty,
+                SuperPower = ""
+            };
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using HotChocolate.Execution.Configuration;
-using net_graphql.Data.Queries;
 using net_graphql.Data.Mutations;
 using net_graphql.Repositories;
 using net_graphql.Services;
@@ -23,17 +22,6 @@ namespace net_graphql
             builder.AddScoped<SuperheroService, SuperheroService>();
             builder.AddScoped<SuperpowerService, SuperpowerService>();
             builder.AddScoped<MovieService, MovieService>();
-
-            return builder;
-        }
-
-        public static IRequestExecutorBuilder AddQueryTypes(this IRequestExecutorBuilder builder)
-        {
-            builder.AddQueryType(q => q.Name("Query"));
-
-            builder.AddType<SuperheroQuery>();
-            builder.AddType<SuperpowerQuery>();
-            builder.AddType<MovieQuery>();
 
             return builder;
         }

@@ -18,7 +18,7 @@ builder.Services.AddRepositories()
 
 // Setup the GraphQL Service
 builder.Services.AddGraphQLServer()
-                .AddQueryTypes()
+                .AddQueryType<Query>()
                 .AddMutationTypes()
                 .AddProjections()
                 .AddFiltering()

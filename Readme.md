@@ -14,13 +14,11 @@ Once you have those, change the connection string in appsettings.json to point t
 
 ## Migrating the Database
 
-There are seeders in `Data\ContextConfigurations` folder. Once you deploy your database migration, these will seed the database. Once you are ready to migrate your database, you will just need to run the following commands in the NuGet Package Manager (Tools > NuGet Package Manager > Nuget Package Manager Console):
+There are seeders in `Data\ContextConfigurations` folder. Once you deploy your database migration, these will seed the database. Once you are ready to migrate your database, you will just need to run the following command in the NuGet Package Manager (Tools > NuGet Package Manager > Nuget Package Manager Console):
     
-You may need to get [Entity Framework Core Tools](#migration-tools) to run these commands.
+You may need to get [Entity Framework Core Tools](#migration-tools) to run this command.
 
 ```
-Add-Migration Initial
-
 Update-Database
 ```
 

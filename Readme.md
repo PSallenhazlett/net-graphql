@@ -22,6 +22,12 @@ You may need to get [Entity Framework Core Tools](#migration-tools) to run this 
 Update-Database
 ```
 
+If you make changes to the models, you will need to create another migration. You can do so with this command:
+
+```
+Add-Migration <Migration Name Here>
+```
+
 ## Migration Tools
 
 If there is an error with migrating the database, you will need to download **Entity Framework Core Tools**. To do so, run this in the NuGet Package Manager console:

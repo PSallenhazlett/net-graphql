@@ -18,10 +18,10 @@ namespace net_graphql.Models
 
         [GraphQLDescription("The Superheroes' super powers.")]
         [UseSorting]
-        public virtual ICollection<Superpower> Superpowers { get; set; }
+        public virtual ICollection<Superpower>? Superpowers { get; set; }
 
         [GraphQLDescription("The movies the superhero is in.")]
         [UseSorting]
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Movie>? Movies { get; set; }
     }
 }

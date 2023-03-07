@@ -19,6 +19,6 @@ namespace net_graphql.Models
         public Guid SuperheroId { get; set; }
 
         [GraphQLDescription("The superhero that this superpower belongs to.")]
-        public virtual Superhero Superhero { get; set; }
+        public virtual Superhero? Superhero { get; set; }
     }
 }

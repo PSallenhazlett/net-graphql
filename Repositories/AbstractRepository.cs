@@ -9,8 +9,6 @@ namespace net_graphql.Repositories
     {
         ApplicationDbContext _context;
 
-        protected abstract IEnumerable<TModel> GetIncludes(IQueryable<TModel> set);
-
         public AbstractRepository(ApplicationDbContext context)
         {
             this._context = context;
@@ -20,17 +18,17 @@ namespace net_graphql.Repositories
         {
             if (filter != null)
             {
-                return this.GetIncludes(this._context.Set<TModel>()).Where(filter);
+                return this._context.Set<TModel>().Where(filter);
             }
             else
             {
-                return this.GetIncludes(this._context.Set<TModel>());
+                return this._context.Set<TModel>();
             }
         }
 
         public TModel? GetSingle(Guid id)
         {
-            return this.GetIncludes(this._context.Set<TModel>()).FirstOrDefault(o => o.Id == id);
+            return this._context.Set<TModel>().FirstOrDefault(o => o.Id == id);
         }
 
         public async Task<TModel> Add(TModel model)

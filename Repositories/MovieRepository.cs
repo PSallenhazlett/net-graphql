@@ -9,10 +9,5 @@ namespace net_graphql.Repositories
         public MovieRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
-
-        protected override IEnumerable<Movie> GetIncludes(IQueryable<Movie> set)
-        {
-            return set.Include(m => m.Superhero);
-        }
     }
 }

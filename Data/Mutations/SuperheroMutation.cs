@@ -21,16 +21,22 @@ namespace net_graphql.Data.Mutations
         }
 
         [GraphQLDescription("Delete a superhero by id.")]
-        public async Task<Superhero> DeleteSuperhero([Service] SuperheroService superheroService, Guid id)
+        public async Task<DeleteResult> DeleteSuperhero([Service] SuperheroService superheroService, Guid id)
         {
-            await superheroService.Delete(id);
-            return new Superhero()
+            var result = new DeleteResult();
+
+            try
             {
-                Id = Guid.Empty,
-                Description = "",
-                Height = 0,
-                Name = "",
-            };
+                await superheroService.Delete(id);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Exception = ex;
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

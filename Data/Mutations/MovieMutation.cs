@@ -20,18 +20,22 @@ namespace net_graphql.Data.Mutations
         }
 
         [GraphQLDescription("Delete a movie by id.")]
-        public async Task<Movie> DeleteMovie([Service] MovieService movieService, Guid id)
+        public async Task<DeleteResult> DeleteMovie([Service] MovieService movieService, Guid id)
         {
-            await movieService.Delete(id);
-            return new Movie()
+            var result = new DeleteResult();
+
+            try
             {
-                Id = Guid.Empty,
-                Description = "",
-                Instructor = "",
-                Title = "",
-                ReleaseDate = DateTime.Now,
-                SuperheroId = Guid.Empty,
-            };
+                await movieService.Delete(id);
+                result.Success = true;
+            }
+            catch ( Exception ex)
+            {
+                result.Exception = ex;
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

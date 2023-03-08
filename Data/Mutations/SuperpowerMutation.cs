@@ -20,16 +20,22 @@ namespace net_graphql.Data.Mutations
         }
 
         [GraphQLDescription("Delete a superpower by id.")]
-        public async Task<Superpower> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)
+        public async Task<DeleteResult> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)
         {
-            await superpowerService.Delete(id);
-            return new Superpower()
+            var result = new DeleteResult();
+
+            try
             {
-                Id = Guid.Empty,
-                Description = "",
-                SuperheroId = Guid.Empty,
-                SuperPower = ""
-            };
+                await superpowerService.Delete(id);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Exception = ex;
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

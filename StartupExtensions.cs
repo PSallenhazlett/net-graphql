@@ -1,5 +1,6 @@
 ﻿using HotChocolate.Execution.Configuration;
 using net_graphql.Data.Mutations;
+using net_graphql.Data.Subscriptions;
 using net_graphql.Repositories;
 using net_graphql.Services;
 
@@ -33,6 +34,17 @@ namespace net_graphql
             builder.AddType<SuperheroMutation>();
             builder.AddType<SuperpowerMutation>();
             builder.AddType<MovieMutation>();
+
+            return builder;
+        }
+
+        public static IRequestExecutorBuilder AddSubscriptionTypes(this IRequestExecutorBuilder builder)
+        {
+            builder.AddSubscriptionType(q => q.Name("Subscription"));
+
+            builder.AddType<SuperheroSubscription>();
+            builder.AddType<SuperpowerSubscription>();
+            builder.AddType<MovieSubscription>();
 
             return builder;
         }

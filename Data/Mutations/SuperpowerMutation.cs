@@ -1,6 +1,7 @@
 ﻿using net_graphql.Models.Mutations;
 using net_graphql.Models;
 using net_graphql.Services;
+using HotChocolate.Subscriptions;
 
 namespace net_graphql.Data.Mutations
 {
@@ -8,19 +9,25 @@ namespace net_graphql.Data.Mutations
     public class SuperpowerMutation
     {
         [GraphQLDescription("Add a superpower by passing the fields needed to create one.")]
-        public async Task<Superpower> AddSuperpower([Service] SuperpowerService superpowerService, CreateSuperpower superpower)
+        public async Task<Superpower> AddSuperpower([Service] SuperpowerService superpowerService, [Service] ITopicEventSender sender, CreateSuperpower superpower, CancellationToken cancellationToken)
         {
-            return await superpowerService.Add(superpower);
+            var power = await superpowerService.Add(superpower);
+            await sender.SendAsync(nameof(AddSuperpower), power, cancellationToken);
+
+            return power;
         }
 
         [GraphQLDescription("Update a superpower by passing all the fields of one.")]
-        public async Task<Superpower> UpdateSuperpower([Service] SuperpowerService superpowerService, Superpower superpower)
+        public async Task<Superpower> UpdateSuperpower([Service] SuperpowerService superpowerService, [Service] ITopicEventSender sender, Superpower superpower, CancellationToken cancellationToken)
         {
-            return await superpowerService.Update(superpower);
+            var power = await superpowerService.Update(superpower);
+            await sender.SendAsync(nameof(UpdateSuperpower), power, cancellationToken);
+            
+            return power;
         }
 
         [GraphQLDescription("Delete a superpower by id.")]
-        public async Task<DeleteResult> DeleteSuperpower([Service] SuperpowerService superpowerService, Guid id)
+        public async Task<DeleteResult> DeleteSuperpower([Service] SuperpowerService superpowerService, [Service] ITopicEventSender sender, Guid id, CancellationToken cancellationToken)
         {
             var result = new DeleteResult();
 
@@ -34,6 +41,8 @@ namespace net_graphql.Data.Mutations
                 result.Exception = ex;
                 result.Success = false;
             }
+
+            await sender.SendAsync(nameof(DeleteSuperpower), result, cancellationToken);
 
             return result;
         }

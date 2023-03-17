@@ -20,9 +20,11 @@ builder.Services.AddRepositories()
 builder.Services.AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationTypes()
+                .AddSubscriptionTypes()
                 .AddProjections()
                 .AddFiltering()
-                .AddSorting();
+                .AddSorting()
+                .AddInMemorySubscriptions();
 
 // Get the connection String
 var connectionString = configuration.GetConnectionString("SqlServer");
@@ -46,6 +48,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseWebSockets();
 
 // Map the Graph QL Server to the /graphql endpoint
 app.MapGraphQL("/graphql", (string?)null);
